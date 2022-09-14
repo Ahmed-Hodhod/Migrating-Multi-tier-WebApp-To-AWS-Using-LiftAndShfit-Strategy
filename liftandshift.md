@@ -37,14 +37,14 @@ _One of the best practices is to only allow https requests to webapp._
 #### 2. Createa a security group for the app-tier (vrofile-app-sg)
 
 The sg should only allow for traffic from vprofile-elb-sg on port 8080.<br>
-The sg should also have port 22 open to be able to login to the instance and troubleshoot our running app.
-**our application is running on a tomcat server listening on port 8080.**
+The sg should also have port 22 open to be able to login to the instance and troubleshoot our running app.<br>
+_our application is running on a tomcat server listening on port 8080._
 
 #### 3. Create a security group for the app-tier (vrofile-backend-sg)
 
-By backend we mean the three instances on which memcached, rabbitMQ and mysql database will be running.
+By backend, we mean the three instances on which memcached, rabbitMQ and mysql database will be running.
 
-This sg should allow for traffic on the following ports:
+**_This sg should allow for traffic on the following ports:_**
 
 - 3306 (mysql port) from vrofile-app-sg
 - 11211 (MemCached port) from vrofile-app-sg
