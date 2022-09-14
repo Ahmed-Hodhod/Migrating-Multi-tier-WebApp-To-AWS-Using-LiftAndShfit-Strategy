@@ -10,24 +10,19 @@ sometimes we will have to go back and modify some properties to test the provisi
 **Please note that this project will incur some AWS charges. So, you can consider finishing the whole project in one go or stopping the instances
 whenever you feel you need a break.**
 
-Elastic Cloud Compute(EC2)
-Elastic Load Balancer(ELB)
-Autoscaling Group(ASG)
-EFS/S3 for storage
-ROUTE 53
-ACM(to issue a certificate)
-Git Bash for windows users
+- Elastic Cloud Compute(EC2)
+- Elastic Load Balancer(ELB)
+- Autoscaling Group(ASG)
+- EFS/S3 for storage
+- ROUTE 53
+- Git Bash for windows users
 
 ## Workflow in a high context
 
-users with be able to access the app using ELB endpoint.
-ELB will forward the request to the tomcat server (app-tier).
-the app-tier will access mysql instance (database-tier) and rabbitMQ & memcached instances (backend-tier) through route 53 private hosted zone.
-
-PS: each tier will have a different security group.
-
-It is more or less the same local architecture, except for Nginx (load-balancer)
-which we replaced with AWS ELB.
+- users will be able to access the app using the ELB endpoint.
+- ELB will forward the request to the tomcat server running on the app-instance (app-tier).
+- The app-instance will access mysql instance (database-tier) and rabbitMQ & memcached instances (backend-tier) through route 53 private hosted zone.
+  **NOTE: Each tier will have a different security group.**
 
 ## Guidelines
 
