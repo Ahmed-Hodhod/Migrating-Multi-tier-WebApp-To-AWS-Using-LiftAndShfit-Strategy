@@ -242,8 +242,10 @@ You can test the Autoscaling Group by deleting the app-instance and waiting for 
 <br>
 _Please note that the number of instances that will be launched equals "Desired" and will never go below "Min" or above "Max"_<br>
 
-![deleting all instances to test ASG](<https://github.com/Ahmed-Hodhod/Migrating-Multi-tier-WebApp-To-AWS-Using-LiftAndShfit-Strategy/blob/main/Screenshots/Screenshot%20(2256).png>)
-_deleting all app instances to test the ASG_
+<p>
+    <img src="https://github.com/Ahmed-Hodhod/Migrating-Multi-tier-WebApp-To-AWS-Using-LiftAndShfit-Strategy/blob/main/Screenshots/Screenshot%20(2256).png" alt>
+    <em>Deleting the app-instance to test the ASG </em>
+</p>
 
 ![SNS topic](<https://github.com/Ahmed-Hodhod/Migrating-Multi-tier-WebApp-To-AWS-Using-LiftAndShfit-Strategy/blob/main/Screenshots/Screenshot%20(2254).png>)
 
