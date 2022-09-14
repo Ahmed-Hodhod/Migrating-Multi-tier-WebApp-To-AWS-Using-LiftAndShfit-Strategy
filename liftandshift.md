@@ -132,7 +132,7 @@ userdata: copy-paste the script userdata/tomcat_ubuntu.sh
   replace **db01** with `db01.vprofile.in`<br>
   replce **mc01** with `mc01.vprofile.in`<br>
   replace **rmq01** with `rmq01.vprofile.in`<br>
-- Go back to vprofile-project where you have "pom.xml" file and execute this command to build the project and generate the artifact: mvn install
+- Go back to vprofile-project where you have "pom.xml" file and execute this command to build the project and generate the artifact:<br> `mvn install`
 - After it finishes executing, you should now have "vprofil-v2.war" in the newly created folder "target"
 
 #### 15. create an S3 bucket and upload vprofile-v2.war ( artifact ) to it (use AWS console)
