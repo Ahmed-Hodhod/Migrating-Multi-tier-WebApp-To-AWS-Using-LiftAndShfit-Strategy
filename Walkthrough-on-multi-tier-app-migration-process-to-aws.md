@@ -276,7 +276,7 @@ _ Login the webapp _
 
 | ![testing memcached-2](<https://github.com/Ahmed-Hodhod/Migrating-Multi-tier-WebApp-To-AWS-Using-LiftAndShfit-Strategy/blob/main/Screenshots/Screenshot%20(2246).png>) |
 | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-|        _Querying the database for the second time. Notice that the query is not sent to the mysql server and the query result is fetched from the memcached. _         |
+|          Querying the database for the second time. Notice that the query is not sent to the mysql server and the query result is fetched from the memcached.          |
 
 ## Conclusion
 
