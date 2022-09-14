@@ -56,6 +56,8 @@ rules after saving the previous 3 rules. Choose All Traffic to allow communicati
 vprofile-backend-sg.
 PS: src/main/resources/application.properties (Java file) holds all specifics about the app communication with other services.
 
+![backend-sg](<https://github.com/Ahmed-Hodhod/Migrating-Multi-tier-WebApp-To-AWS-Using-LiftAndShfit-Strategy/blob/main/Screenshots/Screenshot%20(2203).png>)
+
 #### 4. create a key-pair (.pem for git bash or .ppk for putty)
 
 #### 5. Launch mysql instance
@@ -70,6 +72,9 @@ and finally populating the accounts database with some dummy data.
 #### 7. (Validate) Login into the instance using git bash
 
 - On EC2 dashboard, choose the app instance and connect. From SSH client tab, copy the SSH command and paste it to git bash to login to the instance.
+
+![connect to the instance](<https://github.com/Ahmed-Hodhod/Migrating-Multi-tier-WebApp-To-AWS-Using-LiftAndShfit-Strategy/blob/main/Screenshots/Screenshot%20(2207).png>)
+
 - Switch to root: sudo -i
 - Check whether mariadb server is running or not: systemctl status mariadb
 
@@ -99,6 +104,8 @@ Domain Name: vprofile.in <br>
 Region: us-east-1 (North Virginia) <br>
 vpc: default<br>
 
+![create a hosted zone](<https://github.com/Ahmed-Hodhod/Migrating-Multi-tier-WebApp-To-AWS-Using-LiftAndShfit-Strategy/blob/main/Screenshots/Screenshot%20(2218).png>)
+
 #### 12. Create simple records in the hosted zone
 
 We will create three records for our backend instances.<br>
@@ -114,6 +121,8 @@ Now, we have 3 records as following:<br>
 
 This is one of the best practices regarding using AWS resources. Instead of hard-coding the public IP addresse of an instance,
 you can rather use a Domain record. Also, public IP addresses are prune to change when restarting instances for any reason.
+
+![sampmle zone records ](<https://github.com/Ahmed-Hodhod/Migrating-Multi-tier-WebApp-To-AWS-Using-LiftAndShfit-Strategy/blob/main/Screenshots/Screenshot%20(2203).png>)
 
 #### 13. Launch the app instance which is running on a tomcat server
 
@@ -132,6 +141,9 @@ userdata: copy-paste the script userdata/tomcat_ubuntu.sh
   replace **db01** with `db01.vprofile.in`<br>
   replce **mc01** with `mc01.vprofile.in`<br>
   replace **rmq01** with `rmq01.vprofile.in`<br>
+
+  ![application.properties](<https://github.com/Ahmed-Hodhod/Migrating-Multi-tier-WebApp-To-AWS-Using-LiftAndShfit-Strategy/blob/main/Screenshots/Screenshot%20(2228).png>)
+
 - Go back to vprofile-project where you have "pom.xml" file and execute this command to build the project and generate the artifact:<br> `mvn install`
 - After it finishes executing, you should now have "vprofil-v2.war" in the newly created folder "target"
 
@@ -156,6 +168,9 @@ If you ran into a problem because of the name, you could suffix some random numb
 
 - Login to app01 instance
 - Make sure that tomcat server is running: `systemctl status tomcat8`
+
+  ![checking the tomcat server status](<https://github.com/Ahmed-Hodhod/Migrating-Multi-tier-WebApp-To-AWS-Using-LiftAndShfit-Strategy/blob/main/Screenshots/Screenshot%20(2211).png>)
+
 - CD into: /var/lib/tomcat8/webapp#
 - Stop tomcat server: `systemctl stop tomcat8`
 - Remove the default application: `rm -rf ROOT`
@@ -204,6 +219,11 @@ Copy the ELB endpoint to the browser and login as admin_vp, password: admin_vp. 
   type: t2.micro <br>
   IAM instance profile: choose the role that we created for the app-instance <br>
   select vprofile-app-sg /keypair<br>
+
+![creating a launch configuration](<https://github.com/Ahmed-Hodhod/Migrating-Multi-tier-WebApp-To-AWS-Using-LiftAndShfit-Strategy/blob/main/Screenshots/Screenshot%20(2247).png>)
+
+![creating a launch configuration-2](<https://github.com/Ahmed-Hodhod/Migrating-Multi-tier-WebApp-To-AWS-Using-LiftAndShfit-Strategy/blob/main/Screenshots/Screenshot%20(2248).png>)
+
 - On EC2 dashboard, Create ASG
   - Choose our launch configuration <br>
   - Select all the subnets to launch in any of the AZs<Br>
@@ -212,6 +232,10 @@ Copy the ELB endpoint to the browser and login as admin_vp, password: admin_vp. 
   - Target Scaling policy: Target value = 50 <br>
   - Add Notification & Tags if you wish.<br>
 
+![creating an ASG](<https://github.com/Ahmed-Hodhod/Migrating-Multi-tier-WebApp-To-AWS-Using-LiftAndShfit-Strategy/blob/main/Screenshots/Screenshot%20(2249).png>)
+
+![creating an ASG-2](<https://github.com/Ahmed-Hodhod/Migrating-Multi-tier-WebApp-To-AWS-Using-LiftAndShfit-Strategy/blob/main/Screenshots/Screenshot%20(2250).png>)
+
 #### 21. Test the ASG
 
 You can test the Autoscaling Group by deleting the app-instance and waiting for some time. The ASG will launch an instance using the launch configuration.
@@ -219,6 +243,21 @@ You can test the Autoscaling Group by deleting the app-instance and waiting for 
 _Please note that the number of instances that will be launched equals "Desired" and will never go below "Min" or above "Max"_<br>
 
 You can go further and test the ASG via running a Stress job [ Lookup how to do it using Stress package on linux].
+![deleting all instances to test ASG](<https://github.com/Ahmed-Hodhod/Migrating-Multi-tier-WebApp-To-AWS-Using-LiftAndShfit-Strategy/blob/main/Screenshots/Screenshot%20(2256).png>)
+
+![an instance is launching ](<https://github.com/Ahmed-Hodhod/Migrating-Multi-tier-WebApp-To-AWS-Using-LiftAndShfit-Strategy/blob/main/Screenshots/Screenshot%20(2247).png>)
+
+![SNS topic](<https://github.com/Ahmed-Hodhod/Migrating-Multi-tier-WebApp-To-AWS-Using-LiftAndShfit-Strategy/blob/main/Screenshots/Screenshot%20(2254).png>)
+
+![testing the app](<https://github.com/Ahmed-Hodhod/Migrating-Multi-tier-WebApp-To-AWS-Using-LiftAndShfit-Strategy/blob/main/Screenshots/Screenshot%20(2241).png>)
+
+![testing the app](<https://github.com/Ahmed-Hodhod/Migrating-Multi-tier-WebApp-To-AWS-Using-LiftAndShfit-Strategy/blob/main/Screenshots/Screenshot%20(2240).png>)
+
+![testing the app](<https://github.com/Ahmed-Hodhod/Migrating-Multi-tier-WebApp-To-AWS-Using-LiftAndShfit-Strategy/blob/main/Screenshots/Screenshot%20(2243).png>)
+
+![testing the memcached service-1](<https://github.com/Ahmed-Hodhod/Migrating-Multi-tier-WebApp-To-AWS-Using-LiftAndShfit-Strategy/blob/main/Screenshots/Screenshot%20(2245).png>)
+
+![testing the memcached service-2](<https://github.com/Ahmed-Hodhod/Migrating-Multi-tier-WebApp-To-AWS-Using-LiftAndShfit-Strategy/blob/main/Screenshots/Screenshot%20(2246).png>)
 
 ## Conclusion
 
