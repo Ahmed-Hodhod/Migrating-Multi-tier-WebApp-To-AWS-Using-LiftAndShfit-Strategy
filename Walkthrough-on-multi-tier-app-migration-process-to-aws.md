@@ -1,3 +1,5 @@
+## A walkthrough on migrating a multi-tier webapp to AWS [Lift and Shift Strategy]
+
 **In this walkthrough, we will migrate a multi-tier webapp [Legacy Java Application] to the cloud, namely AWS.**<br>
 **We will run all our webapp environment components on EC2 instances fully managed by us. More specifically, We will be running our own Message Broker server, MySQL server, Java Application frontend server and Memcached server.**<br>
 
