@@ -36,46 +36,42 @@ which we replaced with AWS ELB.
 The sg should allow any http/https request from any ip4 or ipv6.
 One of the best practices is to only allow https requests to our webapp.
 
-2. Createa a security group for the app-tier (vrofile-app-sg)
-   The sg should only allow for traffic from vprofile-elb-sg on port 8080.
-   The sg should also have port 22 open to be able to login to the instance and troubleshoot our running app.
-   our application is running on a tomcat server listening on port 8080.
+#### 2. Createa a security group for the app-tier (vrofile-app-sg)
 
-3. Create a security group for the app-tier (vrofile-backend-sg)  
-   By backend we mean the three instances on which memcached, rabbitMQ and mysql database will be running.
+The sg should only allow for traffic from vprofile-elb-sg on port 8080.
+The sg should also have port 22 open to be able to login to the instance and troubleshoot our running app.
+our application is running on a tomcat server listening on port 8080.
 
-   #### This sg should allow for traffic on the following ports:
+#### 3. Create a security group for the app-tier (vrofile-backend-sg)
 
-   - 3306 (mysql port) from vrofile-app-sg
-   - 11211 (MemCached port) from vrofile-app-sg
-   - 5672 (rabbitMQ port) from vrofile-app-sg
-   - 22 (SSH) from your IP.
+By backend we mean the three instances on which memcached, rabbitMQ and mysql database will be running.
 
-#
+This sg should allow for traffic on the following ports:
+
+- 3306 (mysql port) from vrofile-app-sg
+- 11211 (MemCached port) from vrofile-app-sg
+- 5672 (rabbitMQ port) from vrofile-app-sg
+- 22 (SSH) from your IP.
 
 The sg should also allow for inter-communication between the backend instances. To do that, you need to edit the vprofile-backend-sg
 rules after saving the previous 3 rules. Choose All Traffic to allow communication on all ports and choose Source to be
 vprofile-backend-sg.
 PS: src/main/resources/application.properties (Java file) holds all specifics about the app communication with other services.
 
-#
+#### 4. create a key-pair (.pem for git bash or .ppk for putty)
 
-4. create a key-pair (.pem for git bash or .ppk for putty)
-   PS: we will use git bash in this setup.
+NOTE: we will use git bash in this setup.
 
-#
+#### 5. Launch mysql instance
 
-5. Launch mysql instance
-   AMI: use centOS 7 from the marketplace.
-   sg: use vprofile-backend-sg
-   userdata: copy-paste the script userdata/mysql.sh
+AMI: use centOS 7 from the marketplace.
+sg: use vprofile-backend-sg
+userdata: copy-paste the script userdata/mysql.sh
 
 The userdata script is installing Mariadb server, creating a database (accounts) having a user (admin) with a password (admin123),
 and finally populating the accounts database with some dummy data.
 
-#
-
-7. (Validate) Login into the instance using git bash
+#### 7. (Validate) Login into the instance using git bash
 
 - On instances dashboard, choose the app instance and connect. From SSH client tab, copy the SSH command and paste it to git bash to
   login to the instance.
@@ -84,15 +80,12 @@ and finally populating the accounts database with some dummy data.
   In case of a failure, you can consider waiting for a while and then trying again because it may be taking time to execute the userdata
   script after launching the instance.
 
-#
+#### 8. Launch MemCached instance
 
-7. Launch MemCached instance
-   AMI: use centOS 7 from the marketplace.
-   sg: use vprofile-backend-sg
-   userdata: copy-paste the script userdata/memcache.sh
-   The script is installing the memcached server and starting it.
-
-#
+AMI: use centOS 7 from the marketplace.
+sg: use vprofile-backend-sg
+userdata: copy-paste the script userdata/memcache.sh
+The script is installing the memcached server and starting it.
 
 8. Launch rabbitMQ instance
    AMI: use centOS 7 from the marketplace.
