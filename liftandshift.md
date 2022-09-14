@@ -135,9 +135,9 @@ userdata: copy-paste the script userdata/tomcat_ubuntu.sh
 - Go back to vprofile-project where you have "pom.xml" file and execute this command to build the project and generate the artifact:<br> `mvn install`
 - After it finishes executing, you should now have "vprofil-v2.war" in the newly created folder "target"
 
-#### 15. create an S3 bucket and upload vprofile-v2.war ( artifact ) to it (use AWS console)
+#### 15. create an S3 bucket and upload vprofile-v2.war ( artifact ) to it (use AWS console)<br>
 
-You can also do that through the CLI (git bash). You need to follow these steps:
+You can also do that through the CLI (git bash). <br>You need to follow these steps:
 
 - Create an IAM user with AmazonS3FullAccess policy attached to it
 - Configure aws with this IAM user programmetic access keys: `aws configure`
@@ -193,9 +193,8 @@ the tomcat server running on the app-instance._**
 
 #### 19. Now, we are done with our migration process.
 
-It is the time to test our running app on the ELB endpoint.
-
-- Copy the ELB endpoint to the browser and login as admin_vp, password: admin_vp. You should be logged in and directed to the welcome page.
+It is the time to test our running app on the ELB endpoint.<br>
+Copy the ELB endpoint to the browser and login as admin_vp, password: admin_vp. You should be logged in and directed to the welcome page.
 
 #### 20. Create an Autoscaling Group to handle high traffic
 
@@ -206,13 +205,12 @@ It is the time to test our running app on the ELB endpoint.
   IAM instance profile: choose the role that we created for the app-instance <br>
   select vprofile-app-sg /keypair<br>
 - On EC2 dashboard, Create ASG
-
-Choose our launch configuration <br>
-Select all the subnets to launch in any of the AZs<Br>
-Enable loadbalancing and choose the loadbalancer<br>
-MIN:1, Max: 4, Desired:1 <br>
-Target Scaling policy: Target value = 50 <br>
-Add notification, tags if you wish.<br>
+  - Choose our launch configuration <br>
+  - Select all the subnets to launch in any of the AZs<Br>
+  - Enable loadbalancing and choose the loadbalancer<br>
+  - MIN:1, Max: 4, Desired:1 <br>
+  - Target Scaling policy: Target value = 50 <br>
+  - Add notification, tags if you wish.<br>
 
 #### 21. Test the ASG
 
