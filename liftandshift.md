@@ -1,4 +1,4 @@
-**_In this walkthrough, we will migrate a multi-tier webapp to the cloud without changing the workflow [Lift and Shift Strategy]._**
+**_In this walkthrough, we will migrate a multi-tier webapp to the cloud without changing the workflow through following the [Lift and Shift Strategy]._**
 
 ## Prerequisite
 
@@ -7,8 +7,8 @@ sometimes we will have to go back and modify some properties to test the provisi
 
 ## AWS resources
 
-Please note that this project will incur some AWS charges. So, you can consider finishing the whole project in one go or stopping the instances
-whenever you feel you need a break.
+_Please note that this project will incur some AWS charges. So, you can consider finishing the whole project in one go or stopping the instances
+whenever you feel you need a break._
 
 Elastic Cloud Compute(EC2)
 Elastic Load Balancer(ELB)
