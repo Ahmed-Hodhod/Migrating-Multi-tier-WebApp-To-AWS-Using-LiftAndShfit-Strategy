@@ -117,15 +117,15 @@ you can rather use a Domain record. Also, public IP addresses are prune to chang
 
 #### 13. Launch the app instance which is running on a tomcat server
 
-    AMI: Ubuntu
-    sg: use vprofile-app-sg
-    userdata: copy-paste the script userdata/tomcat_ubuntu.sh
+AMI: Ubuntu
+sg: use vprofile-app-sg
+userdata: copy-paste the script userdata/tomcat_ubuntu.sh
 
 ### Build and Deploy Artifacts
 
 #### 14. Open Git Bash
 
-- clone the source code: git clone -b aws-LiftAndShift https://github.com/devopshydclub/vprofile-project.git
+- clone the source code: `git clone -b aws-LiftAndShift https://github.com/devopshydclub/vprofile-project.git`
 - swtich to aws-LiftAndShift: git checkout aws-LiftAndShift -f
 - cd into vprofile-project/src/main/resource and update the application.properties file:
   instead of "db01" in the third line, make it: db01.vprofile.in
