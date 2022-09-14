@@ -31,6 +31,8 @@ which we replaced with AWS ELB.
 
 ## Guidelines
 
+### Prepare the infrastructure
+
 #### 1. Create a security group for the ELB (vprofile-elb-sg)
 
 The sg should allow any http/https request from any ip4 or ipv6.
@@ -87,26 +89,24 @@ sg: use vprofile-backend-sg
 userdata: copy-paste the script userdata/memcache.sh
 The script is installing the memcached server and starting it.
 
-8. Launch rabbitMQ instance
-   AMI: use centOS 7 from the marketplace.
-   sg: use vprofile-backend-sg
-   userdata: copy-paste the script userdata/rabbitmq.sh
-   The script is installing rabbitMQ server & its dependencies and then starting it.
+#### 9. Launch rabbitMQ instance
 
-9. In a blank file, write down the private IP of each of the 3 instances in the backend.
+AMI: use centOS 7 from the marketplace.
+sg: use vprofile-backend-sg
+userdata: copy-paste the script userdata/rabbitmq.sh
+The script is installing rabbitMQ server & its dependencies and then starting it.
 
-#
+#### 10. In a blank file, write down the private IP of each of the 3 instances in the backend.
 
-10. Go to AWS Route 53 -> Create a private Hosted Zone  
+#### 11. Go to AWS Route 53 -> Create a private Hosted Zone
+
     Domain Name: vprofile.in
     Region: us-east-1 (North Virginia)
     vpc: default
 
-#
+#### 12. Create simple records in the hosted zone
 
-11. Create simple records in the hosted zone
-    We will create three records for our backend instances.
-
+We will create three records for our backend instances.
 Record name: db01
 endpoint: paste the IP copied from the blank file (step 9)
 
@@ -119,37 +119,29 @@ rmq01.vprofile.in
 This is one of the best practices regarding using AWS resources. Instead of hard-coding the public IP addresse of an instance,
 you can rather use a Domain record. Also, public IP addresses are prune to change when restarting instances for any reason.
 
-12. Launch the app instance which is running on a tomcat server  
+#### 13. Launch the app instance which is running on a tomcat server
+
     AMI: Ubuntu
     sg: use vprofile-app-sg
     userdata: copy-paste the script userdata/tomcat_ubuntu.sh
 
-Build and Deploy Artifacts
+### Build and Deploy Artifacts
 
-1. Open Git Bash
+#### 14. Open Git Bash
 
 - clone the source code: git clone -b aws-LiftAndShift https://github.com/devopshydclub/vprofile-project.git
 - swtich to aws-LiftAndShift: git checkout aws-LiftAndShift -f
 - cd into vprofile-project/src/main/resource and update the application.properties file:
   instead of "db01" in the third line, make it: db01.vprofile.in
+  db01 -> db01.vprofile.in
+  mc01 -> mc01.vprofile.in
+  rmq01 -> rmq01.vprofile.in
+- Go back to vprofile-project where you have "pom.xml" file and execute this command to build the project and generate the artifact: mvn install
+- After it finishes executing, you should now have "vprofil-v2.war" in the newly created folder "target"
 
-db01 -> db01.vprofile.in
-mc01 -> mc01.vprofile.in
-rmq01 -> rmq01.vprofile.in
+#### 15. create an S3 bucket and upload vprofile-v2.war ( artifact ) to it (use AWS console)
 
-#
-
-2. Go back to vprofile-project where you have "pom.xml" file and execute this command to build the project and
-   generate the artifact: mvn install
-
-#
-
-3. After it finishes executing, you should now have "vprofil-v2.war" in the newly created folder "target"
-
-#
-
-4. create an S3 bucket and upload vprofile-v2.war ( artifact ) to it (use AWS console)
-   You can also do that through the CLI (git bash). You need to follow these steps:
+You can also do that through the CLI (git bash). You need to follow these steps:
 
 - Create an IAM user with AmazonS3FullAccess policy attached to it.
 - Configure aws with this IAM user programmetic access keys.
@@ -158,16 +150,12 @@ rmq01 -> rmq01.vprofile.in
   PS: the name of the bucket must be unique.
   If you ran into a problem because of the name, you could suffix some random numbers to the bucket name to distinguish it.
 
-#
-
-8. Create an IAM role and attach it to the app instance
+#### 16. Create an IAM role and attach it to the app instance
 
 - Create an IAM role with AmazonS3FullAccess
 - On EC2 dashboard -> choose the app instance -> actions -> instance settings -> modify IAM role and attach the new role
 
-#
-
-9. Move the artifact from the S3 bucket to EC2 app instance
+#### 17. Move the artifact from the S3 bucket to EC2 app instance
 
 - Login to app01 instance
 - Make sure that tomcat server is running: systemctl status tomcat8
@@ -187,19 +175,16 @@ rmq01 -> rmq01.vprofile.in
   Please remember that vprofile-backend-sg allows requests from the vprofile-app-sg, so this should work fine.
 - Till this point, you can already browse the webapp on http://[the app-instance Public IP goes here]:8080
 
-#
+#### 17. Now, it is the time to setup our loadbalancer
 
-10. Now, it is the time to setup our loadbalancer
-    You need a target group for it with the following configurations:
+You need a target group for it with the following configurations:
 
 - Health Check Path: /login
 - Port: override to 8080
 - Threshold: decrease to 2 or 3
 - Register our app-instance -> include as pending
 
-#
-
-11. Create an application load balancer
+#### 18. Create an application load balancer
 
 - select all zones
 - select the loadbalancer sg
@@ -209,17 +194,13 @@ rmq01 -> rmq01.vprofile.in
   Please Note that the load balancer itself is listening on port 80 (http) while the target group is listening on port 8080 the same as
   the tomcat server running on the app-instance.
 
-#
+#### 19. Now, we are done with our migration process.
 
-12. Now, we are done with our migration process.
-    It is the time to test our running app on the ELB endpoint.
+It is the time to test our running app on the ELB endpoint.
 
-- Copy the ELB endpoint to the browser and login as admin_vp, password: admin_vp
-  You should be logged in and directed to the welcome page.
+- Copy the ELB endpoint to the browser and login as admin_vp, password: admin_vp. You should be logged in and directed to the welcome page.
 
-#
-
-13. Create an Autoscaling Group to handle high traffic
+#### 20. Create an Autoscaling Group to handle high traffic
 
 - Choose vprofile-app01 instance -> actions -> image -> create an image and give it a name.
   It will be available under AMIs on EC2 dashboard.
@@ -235,11 +216,10 @@ rmq01 -> rmq01.vprofile.in
   Target Scaling policy: Target value = 50 .
   Add notification, tags if you wish.
 
-#
+#### 21. Test the ASG
 
-14. You can test the Autoscaling Group by deleting the app-instance and waiting for some time. The ASG will launch an instance
-    using the launch configuration.
-    Please note that the number of instances that will be launched equals "Desired" and will never go below "Min" or above "Max"
+You can test the Autoscaling Group by deleting the app-instance and waiting for some time. The ASG will launch an instance using the launch configuration.
+Please note that the number of instances that will be launched equals "Desired" and will never go below "Min" or above "Max"
 
 You can go further and test the ASG via running a Stress job [ Lookup how to do it using Stress package on linux].
 
