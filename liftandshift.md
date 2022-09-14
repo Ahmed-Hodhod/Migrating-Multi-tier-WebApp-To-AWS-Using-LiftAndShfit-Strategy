@@ -1,4 +1,4 @@
-In this walkthrough, we will migrate a multi-tier webapp to the cloud without changing the workflow [Lift and Shift Strategy].
+**_In this walkthrough, we will migrate a multi-tier webapp to the cloud without changing the workflow [Lift and Shift Strategy]._**
 
 ## Prerequisite
 
