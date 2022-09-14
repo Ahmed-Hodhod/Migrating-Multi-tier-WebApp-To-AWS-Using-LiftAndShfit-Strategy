@@ -1,4 +1,4 @@
-**_In this walkthrough, we will migrate a multi-tier webapp to the cloud without changing the workflow through following the [Lift and Shift Strategy]._**
+**_In this walkthrough, we will migrate a multi-tier webapp to the cloud without using AWS native services through following the [Lift and Shift Strategy]._**
 
 ## Prerequisite
 
@@ -31,17 +31,23 @@ whenever you feel you need a break.**
 
 ## Guidelines
 
+First of all, you need to clone the source code [java application]:
+`git clone -b aws-LiftAndShift https://github.com/devopshydclub/vprofile-project.git` <br>
+
+Swtich to aws-LiftAndShift: `git checkout aws-LiftAndShift -f`<br>
+
 ### Prepare the infrastructure
 
 #### 1. Create a security group for the ELB (vprofile-elb-sg)
 
 The sg should allow any _http/https_ request from any ip4 or ipv6.<br>
-_One of the best practices is to only allow https requests to webapp._
+_One of the best practices is to only allow https requests to the webapp._
 
-#### 2. Createa a security group for the app-tier (vrofile-app-sg)
+#### 2. Create a security group for the app-tier (vrofile-app-sg)
 
 The sg should only allow for traffic from vprofile-elb-sg on port 8080.<br>
 The sg should also have port 22 open to be able to login to the instance and troubleshoot our running app.<br>
+
 _our application is running on a tomcat server listening on port 8080._
 
 #### 3. Create a security group for the app-tier (vrofile-backend-sg)
@@ -57,10 +63,11 @@ By backend, we mean the three instances on which memcached, rabbitMQ and mysql d
 
 The sg should also allow for inter-communication between the backend instances. To do that, you need to edit the vprofile-backend-sg
 rules after saving the previous 3 rules. Choose All Traffic to allow communication on all ports and choose Source to be
-vprofile-backend-sg.
-PS: src/main/resources/application.properties (Java file) holds all specifics about the app communication with other services.
+vprofile-backend-sg.<br>
 
-![backend-sg](<https://github.com/Ahmed-Hodhod/Migrating-Multi-tier-WebApp-To-AWS-Using-LiftAndShfit-Strategy/blob/main/Screenshots/Screenshot%20(2203).png>)
+![backend-sg](<https://github.com/Ahmed-Hodhod/Migrating-Multi-tier-WebApp-To-AWS-Using-LiftAndShfit-Strategy/blob/main/Screenshots/Screenshot%20(2203).png>)<br>
+
+_NOTE: src/main/resources/application.properties (Java file) holds all the specifics about the app communication with other services._
 
 #### 4. create a key-pair (.pem for git bash or .ppk for putty)
 
@@ -79,7 +86,7 @@ and finally populating the accounts database with some dummy data.
 
 ![connect to the instance](<https://github.com/Ahmed-Hodhod/Migrating-Multi-tier-WebApp-To-AWS-Using-LiftAndShfit-Strategy/blob/main/Screenshots/Screenshot%20(2207).png>)
 
-- Switch to root: sudo -i
+- Switch to root: `sudo -i`
 - Check whether mariadb server is running or not: systemctl status mariadb
 
 In case of a failure, you can consider waiting for a while and then trying again because it may be taking time to execute the userdata script after launching the instance.
@@ -123,7 +130,7 @@ Now, we have 3 records as following:<br>
 - mc01.vprofile.in<br>
 - rmq01.vprofile.in<br>
 
-This is one of the best practices regarding using AWS resources. Instead of hard-coding the public IP addresse of an instance,
+This is one of the best practices regarding using AWS resources. Instead of hard-coding the public IP address of an instance,
 you can rather use a Domain record. Also, public IP addresses are prune to change when restarting instances for any reason.
 
 ![sample zone records ](<https://github.com/Ahmed-Hodhod/Migrating-Multi-tier-WebApp-To-AWS-Using-LiftAndShfit-Strategy/blob/main/Screenshots/Screenshot%20(2224).png>)
@@ -138,9 +145,9 @@ userdata: copy-paste the script userdata/tomcat_ubuntu.sh
 
 #### 14. Open Git Bash
 
-- clone the source code: `git clone -b aws-LiftAndShift https://github.com/devopshydclub/vprofile-project.git`
+- clone the source code [skip this step if you already cloned the repo in the beginning]: `git clone -b aws-LiftAndShift https://github.com/devopshydclub/vprofile-project.git`
 - swtich to aws-LiftAndShift: `git checkout aws-LiftAndShift -f`
-- cd into vprofile-project/src/main/resource and update the application.properties file: <br>
+- `vim vprofile-project/src/main/resource and update the application.properties` <br>
   instead of "db01" in the third line, make it: db01.vprofile.in<br>
   replace **db01** with `db01.vprofile.in`<br>
   replce **mc01** with `mc01.vprofile.in`<br>
@@ -207,8 +214,7 @@ You need a target group for it with the following configurations:
 - Listener: 80
 
 _NOTE: you can add a Listener on port 443 (https), but you will need to add an ACM certificate issued in the same region and this costs some dollars.<br>_
-**_Please Note that the load balancer itself is listening on port 8 (http) while the target group is listening on port 8080 the same as
-the tomcat server running on the app-instance._**
+**_Please Note that the load balancer itself is listening on port 80 (http) while the target group is listening on port 8080 the same as tomcat server running on the app-instance._**
 
 #### 19. Now, we are done with our migration process.
 
@@ -278,4 +284,4 @@ You can go further and test the ASG via running a Stress job [ Lookup how to do 
 
 ## Conclusion
 
-Lift and Shift strategy is the not the best way to migrate to the cloud.Cloud providers such as AWS provide lots of tools that could help the businesses to operate faster without sharp costs or the burdening management or the provisioned resources.
+Lift and Shift strategy is the not the best way to migrate to the cloud. Cloud providers such as AWS provide lots of tools that could help the businesses to operate faster without heavy costs or the burdening management of the provisioned resources.
