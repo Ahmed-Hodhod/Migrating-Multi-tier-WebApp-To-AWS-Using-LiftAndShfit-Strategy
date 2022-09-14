@@ -205,8 +205,9 @@ rmq01 -> rmq01.vprofile.in
   Target Scaling policy: Target value = 50 .
   Add notification, tags if you wish.
 
-# 14. You can test the Autoscaling Group by deleting the app-instance and waiting for some time. The ASG will launch an instance
+---
 
+14. You can test the Autoscaling Group by deleting the app-instance and waiting for some time. The ASG will launch an instance
     using the launch configuration.
     Please note that the number of instances that will be launched equals "Desired" and will never go below "Min" or above "Max"
 
