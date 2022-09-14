@@ -222,4 +222,4 @@ You can go further and test the ASG via running a Stress job [ Lookup how to do 
 
 ## Conclusion
 
-Lift and Shift strategy is the not the best way to migrate to the cloud. Cloud providers such as AWS provide lots of tools that could help the businesses to operate faster without sharp costs.
+Lift and Shift strategy is the not the best way to migrate to the cloud. Cloud providers such as AWS provide lots of tools that could help the businesses to operate faster without sharp costs or burdening management.
