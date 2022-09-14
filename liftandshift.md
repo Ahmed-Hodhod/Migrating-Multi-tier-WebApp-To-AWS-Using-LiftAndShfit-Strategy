@@ -31,9 +31,10 @@ which we replaced with AWS ELB.
 
 ## Guidelines
 
-1. Create a security group for the ELB (vprofile-elb-sg)  
-   The sg should allow any http/https request from any ip4 or ipv6.
-   One of the best practices is to only allow https requests to our webapp.
+#### 1. Create a security group for the ELB (vprofile-elb-sg)
+
+The sg should allow any http/https request from any ip4 or ipv6.
+One of the best practices is to only allow https requests to our webapp.
 
 2. Createa a security group for the app-tier (vrofile-app-sg)
    The sg should only allow for traffic from vprofile-elb-sg on port 8080.
