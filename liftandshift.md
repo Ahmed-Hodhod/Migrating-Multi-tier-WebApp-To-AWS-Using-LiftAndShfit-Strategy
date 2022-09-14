@@ -205,12 +205,13 @@ rmq01 -> rmq01.vprofile.in
   Target Scaling policy: Target value = 50 .
   Add notification, tags if you wish.
 
-14. You can test the Autoscaling Group by deleting the app-instance and waiting for some time. The ASG will launch an instance
+# 14. You can test the Autoscaling Group by deleting the app-instance and waiting for some time. The ASG will launch an instance
+
     using the launch configuration.
     Please note that the number of instances that will be launched equals "Desired" and will never go below "Min" or above "Max"
 
-You can go further and test the AGS via running a Stress job [ Lookup how to do it using Stress package on linux].
+You can go further and test the ASG via running a Stress job [ Lookup how to do it using Stress package on linux].
 
 ## Conclusion
 
-In this walkthrough, we shifted our project manually to our managed instances on AWS using the classic approach [Simple Lift & Shift]
+In this walkthrough, we shifted the project manually to EC2 instances managed by us on AWS using the classic approach [Simple Lift & Shift]
