@@ -1,10 +1,12 @@
 In this walkthrough, we will migrate a multi-tier webapp to the cloud without changing the workflow [Lift and Shift Strategy].
 
-Prerequisite
+## Prerequisite
+
 You are excepted to be familiar with AWS compute services such as EC2. This is because AWS interface changes frequently and
 sometimes we will have to go back and modify some properties to test the provisioned resources.
 
-AWS resources
+## AWS resources
+
 Please note that this project will incur some AWS charges. So, you can consider finishing the whole project in one go or stopping the instances
 whenever you feel you need a break.
 
@@ -16,7 +18,8 @@ ROUTE 53
 ACM(to issue a certificate)
 Git Bash for windows users
 
-Workflow in a high context
+## Workflow in a high context
+
 users with be able to access the app using ELB endpoint.
 ELB will forward the request to the tomcat server (app-tier).
 the app-tier will access mysql instance (database-tier) and rabbitMQ & memcached instances (backend-tier) through route 53 private hosted zone.
@@ -26,7 +29,7 @@ PS: each tier will have a different security group.
 It is more or less the same local architecture, except for Nginx (load-balancer)
 which we replaced with AWS ELB.
 
-Guidelines
+## Guidelines
 
 1. Create a security group for the ELB (vprofile-elb-sg)  
    The sg should allow any http/https request from any ip4 or ipv6.
