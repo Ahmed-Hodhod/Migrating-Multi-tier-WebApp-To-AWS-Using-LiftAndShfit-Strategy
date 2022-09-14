@@ -139,11 +139,11 @@ userdata: copy-paste the script userdata/tomcat_ubuntu.sh
 
 You can also do that through the CLI (git bash). You need to follow these steps:
 
-- Create an IAM user with AmazonS3FullAccess policy attached to it.
-- Configure aws with this IAM user programmetic access keys.
-- Create an S3 bucket: aws s3 mb s3://vprofile-artifact-123456
-- Upload the artifact to the bucket: aws s3 cp vprofile-v2.war s3://vprofile-artifact-123456/vprofile-v2.war
-  PS: the name of the bucket must be unique.
+- Create an IAM user with AmazonS3FullAccess policy attached to it
+- Configure aws with this IAM user programmetic access keys: `aws configure`
+- Create an S3 bucket: `aws s3 mb s3://vprofile-artifact-123456`
+- Upload the artifact to the bucket: `aws s3 cp vprofile-v2.war s3://vprofile-artifact-123456/vprofile-v2.war`<BR>
+  **_NOTE: the name of the bucket must be unique._** <br>
   If you ran into a problem because of the name, you could suffix some random numbers to the bucket name to distinguish it.
 
 #### 16. Create an IAM role and attach it to the app instance
