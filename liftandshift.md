@@ -210,7 +210,7 @@ Copy the ELB endpoint to the browser and login as admin_vp, password: admin_vp. 
   - Enable loadbalancing and choose the loadbalancer<br>
   - MIN:1, Max: 4, Desired:1 <br>
   - Target Scaling policy: Target value = 50 <br>
-  - Add notification, tags if you wish.<br>
+  - Add Notification & Tags if you wish.<br>
 
 #### 21. Test the ASG
 
@@ -222,4 +222,4 @@ You can go further and test the ASG via running a Stress job [ Lookup how to do 
 
 ## Conclusion
 
-In this walkthrough, we shifted the project manually to EC2 instances managed by us on AWS using the classic approach [Simple Lift & Shift]
+Lift and Shift strategy is the not the best way to migrate to the cloud. Cloud providers such as AWS provide lots of tools that could help the businesses to operate faster without sharp costs.
