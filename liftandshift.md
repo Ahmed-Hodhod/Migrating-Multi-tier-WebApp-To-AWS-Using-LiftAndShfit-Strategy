@@ -42,19 +42,27 @@ which we replaced with AWS ELB.
 
 3. Create a security group for the app-tier (vrofile-backend-sg)  
    By backend we mean the three instances on which memcached, rabbitMQ and mysql database will be running.
-   This sg should allow for traffic on the following ports:
-4. 3306 (mysql port) from vrofile-app-sg
-5. 11211 (MemCached port) from vrofile-app-sg
-6. 5672 (rabbitMQ port) from vrofile-app-sg
-7. 22 (SSH) from your IP.
+
+# This sg should allow for traffic on the following ports:
+
+- 3306 (mysql port) from vrofile-app-sg
+- 11211 (MemCached port) from vrofile-app-sg
+- 5672 (rabbitMQ port) from vrofile-app-sg
+- 22 (SSH) from your IP.
+
+#
 
 The sg should also allow for inter-communication between the backend instances. To do that, you need to edit the vprofile-backend-sg
 rules after saving the previous 3 rules. Choose All Traffic to allow communication on all ports and choose Source to be
 vprofile-backend-sg.
 PS: src/main/resources/application.properties (Java file) holds all specifics about the app communication with other services.
 
+#
+
 4. create a key-pair (.pem for git bash or .ppk for putty)
    PS: we will use git bash in this setup.
+
+#
 
 5. Launch mysql instance
    AMI: use centOS 7 from the marketplace.
@@ -63,6 +71,8 @@ PS: src/main/resources/application.properties (Java file) holds all specifics ab
 
 The userdata script is installing Mariadb server, creating a database (accounts) having a user (admin) with a password (admin123),
 and finally populating the accounts database with some dummy data.
+
+#
 
 7. (Validate) Login into the instance using git bash
 
@@ -73,11 +83,15 @@ and finally populating the accounts database with some dummy data.
   In case of a failure, you can consider waiting for a while and then trying again because it may be taking time to execute the userdata
   script after launching the instance.
 
+#
+
 7. Launch MemCached instance
    AMI: use centOS 7 from the marketplace.
    sg: use vprofile-backend-sg
    userdata: copy-paste the script userdata/memcache.sh
    The script is installing the memcached server and starting it.
+
+#
 
 8. Launch rabbitMQ instance
    AMI: use centOS 7 from the marketplace.
@@ -87,10 +101,14 @@ and finally populating the accounts database with some dummy data.
 
 9. In a blank file, write down the private IP of each of the 3 instances in the backend.
 
+#
+
 10. Go to AWS Route 53 -> Create a private Hosted Zone  
     Domain Name: vprofile.in
     Region: us-east-1 (North Virginia)
     vpc: default
+
+#
 
 11. Create simple records in the hosted zone
     We will create three records for our backend instances.
@@ -125,10 +143,16 @@ db01 -> db01.vprofile.in
 mc01 -> mc01.vprofile.in
 rmq01 -> rmq01.vprofile.in
 
+#
+
 2. Go back to vprofile-project where you have "pom.xml" file and execute this command to build the project and
    generate the artifact: mvn install
 
+#
+
 3. After it finishes executing, you should now have "vprofil-v2.war" in the newly created folder "target"
+
+#
 
 4. create an S3 bucket and upload vprofile-v2.war ( artifact ) to it (use AWS console)
    You can also do that through the CLI (git bash). You need to follow these steps:
@@ -140,10 +164,14 @@ rmq01 -> rmq01.vprofile.in
   PS: the name of the bucket must be unique.
   If you ran into a problem because of the name, you could suffix some random numbers to the bucket name to distinguish it.
 
+#
+
 8. Create an IAM role and attach it to the app instance
 
 - Create an IAM role with AmazonS3FullAccess
 - On EC2 dashboard -> choose the app instance -> actions -> instance settings -> modify IAM role and attach the new role
+
+#
 
 9. Move the artifact from the S3 bucket to EC2 app instance
 
@@ -165,6 +193,8 @@ rmq01 -> rmq01.vprofile.in
   Please remember that vprofile-backend-sg allows requests from the vprofile-app-sg, so this should work fine.
 - Till this point, you can already browse the webapp on http://[the app-instance Public IP goes here]:8080
 
+#
+
 10. Now, it is the time to setup our loadbalancer
     You need a target group for it with the following configurations:
 
@@ -172,6 +202,8 @@ rmq01 -> rmq01.vprofile.in
 - Port: override to 8080
 - Threshold: decrease to 2 or 3
 - Register our app-instance -> include as pending
+
+#
 
 11. Create an application load balancer
 
@@ -183,11 +215,15 @@ rmq01 -> rmq01.vprofile.in
   Please Note that the load balancer itself is listening on port 80 (http) while the target group is listening on port 8080 the same as
   the tomcat server running on the app-instance.
 
+#
+
 12. Now, we are done with our migration process.
     It is the time to test our running app on the ELB endpoint.
 
 - Copy the ELB endpoint to the browser and login as admin_vp, password: admin_vp
   You should be logged in and directed to the welcome page.
+
+#
 
 13. Create an Autoscaling Group to handle high traffic
 
