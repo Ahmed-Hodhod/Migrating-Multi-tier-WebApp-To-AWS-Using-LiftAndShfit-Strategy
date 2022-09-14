@@ -249,7 +249,9 @@ _Please note that the number of instances that will be launched equals "Desired"
 | ![SNS topic](<https://github.com/Ahmed-Hodhod/Migrating-Multi-tier-WebApp-To-AWS-Using-LiftAndShfit-Strategy/blob/main/Screenshots/Screenshot%20(2254).png>) |
 | :----------------------------------------------------------------------------------------------------------------------------------------------------------: |
 
-| An email is received from the SNS topic when a new instance is launched by the ASG.|
+|
+An email is received from the SNS topic when a new instance is launched by the ASG.
+|
 
 You can go further and test the ASG via running a Stress job [ Lookup how to do it using Stress package on linux].
 
@@ -263,8 +265,7 @@ You can go further and test the ASG via running a Stress job [ Lookup how to do 
 
 | ![Login to the app](<https://github.com/Ahmed-Hodhod/Migrating-Multi-tier-WebApp-To-AWS-Using-LiftAndShfit-Strategy/blob/main/Screenshots/Screenshot%20(2243).png>) |
 | :-----------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-
-| Login the webapp. <br>user: admin_vp, password: admin_vp |
+|                                                    Login to the webapp. <br> user: admin_vp , password: admin_vp                                                    |
 
 | ![testing memcached-1](<https://github.com/Ahmed-Hodhod/Migrating-Multi-tier-WebApp-To-AWS-Using-LiftAndShfit-Strategy/blob/main/Screenshots/Screenshot%20(2245).png>) |
 | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
