@@ -264,14 +264,15 @@ You can go further and test the ASG via running a Stress job [ Lookup how to do 
 | ![Login to the app](<https://github.com/Ahmed-Hodhod/Migrating-Multi-tier-WebApp-To-AWS-Using-LiftAndShfit-Strategy/blob/main/Screenshots/Screenshot%20(2243).png>) |
 | :-----------------------------------------------------------------------------------------------------------------------------------------------------------------: |
 
-| _ user: admin_vp, password: admin_vp_ <br>
-_Login to the webapp _ |
+|
+_ Login the webapp _
+|
 
-![testing the memcached service-1](<https://github.com/Ahmed-Hodhod/Migrating-Multi-tier-WebApp-To-AWS-Using-LiftAndShfit-Strategy/blob/main/Screenshots/Screenshot%20(2245).png>)
+| _ user: admin_vp, password: admin_vp _ |
 
 | ![testing memcached-1](<https://github.com/Ahmed-Hodhod/Migrating-Multi-tier-WebApp-To-AWS-Using-LiftAndShfit-Strategy/blob/main/Screenshots/Screenshot%20(2245).png>) |
 | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-|                                         _Quering the database for the first time. No data is cached in the memcached server. _                                         |
+|                                        _ Quering the database for the first time. No data is cached in the memcached server. _                                         |
 
 | ![testing memcached-2](<https://github.com/Ahmed-Hodhod/Migrating-Multi-tier-WebApp-To-AWS-Using-LiftAndShfit-Strategy/blob/main/Screenshots/Screenshot%20(2246).png>) |
 | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
