@@ -143,8 +143,9 @@ You can also do that through the CLI (git bash). You need to follow these steps:
 - Configure aws with this IAM user programmetic access keys: `aws configure`
 - Create an S3 bucket: `aws s3 mb s3://vprofile-artifact-123456`
 - Upload the artifact to the bucket: `aws s3 cp vprofile-v2.war s3://vprofile-artifact-123456/vprofile-v2.war`<BR>
-  **_NOTE: the name of the bucket must be unique._** <br>
-  If you ran into a problem because of the name, you could suffix some random numbers to the bucket name to distinguish it.
+
+_NOTE: the name of the bucket must be unique._ <br>
+If you ran into a problem because of the name, you could suffix some random numbers to the bucket name to distinguish it.
 
 #### 16. Create an IAM role and attach it to the app instance
 
@@ -154,22 +155,22 @@ You can also do that through the CLI (git bash). You need to follow these steps:
 #### 17. Move the artifact from the S3 bucket to EC2 app instance
 
 - Login to app01 instance
-- Make sure that tomcat server is running: systemctl status tomcat8
+- Make sure that tomcat server is running: `systemctl status tomcat8`
 - CD into: /var/lib/tomcat8/webapp#
-- systemctl stop tomcat8
-- rm -rf ROOT : the default application
-- apt install awscli -y
-  PS: You don't need to configure aws here because the instance is assuming the role by default.
-- aws s3 ls s3://vprofile-artifact-123456 (use your bucket name)
-- aws s3 cp s3://vprofile-artifact-123456/vprofile-v2.war /tmp/vprofile-v2.war (use your bucket name)
-- cp /tmp/vprofile-v2.war /var/lib/tomcat8/webapps/ROOT.war
-- systemctl start tomcat8
+- Stop tomcat server: `systemctl stop tomcat8`
+- Remove the default application: `rm -rf ROOT`
+- Install aws cli: `apt install awscli -y`<br>
+  _NOTE: You don't need to configure aws here because the instance is assuming the role by default._<br>
+- `aws s3 ls s3://vprofile-artifact-123456` (use your bucket name)
+- Copy from S3 to EC2: `aws s3 cp s3://vprofile-artifact-123456/vprofile-v2.war /tmp/vprofile-v2.war` (use your bucket name)
+- Move the artifact : `cp /tmp/vprofile-v2.war /var/lib/tomcat8/webapps/ROOT.war`
+- Start the server again: `systemctl start tomcat8`
 - List all folders under webapps, you should find ROOT and ROOT.war
-- Check application.properties file: cat /ROOT/WEB INF/classes/application.properties
-- apt install telnet
-- Check Connectivity to the backend instances: telnet db01.vprofile.in 3306
+- Check application.properties file: `cat /ROOT/WEB INF/classes/application.properties`<br>
+- `apt install telnet`
+- Check Connectivity to the backend instances: `telnet db01.vprofile.in 3306`<br>
   Please remember that vprofile-backend-sg allows requests from the vprofile-app-sg, so this should work fine.
-- Till this point, you can already browse the webapp on http://[the app-instance Public IP goes here]:8080
+- Till this point, you can already browse the webapp on `http://[the app-instance Public IP goes here]:8080`
 
 #### 17. Now, it is the time to setup our loadbalancer
 
@@ -184,11 +185,11 @@ You need a target group for it with the following configurations:
 
 - select all zones
 - select the loadbalancer sg
-- Listener: 80  
-  PS: you can add a Listener on port 443 (https), but you will need to add an ACM certificate issued in the same region
-  and this costs some dollars.
-  Please Note that the load balancer itself is listening on port 80 (http) while the target group is listening on port 8080 the same as
-  the tomcat server running on the app-instance.
+- Listener: 80
+
+_NOTE: you can add a Listener on port 443 (https), but you will need to add an ACM certificate issued in the same region and this costs some dollars.<br>_
+**_Please Note that the load balancer itself is listening on port 8 (http) while the target group is listening on port 8080 the same as
+the tomcat server running on the app-instance._**
 
 #### 19. Now, we are done with our migration process.
 
@@ -200,22 +201,24 @@ It is the time to test our running app on the ELB endpoint.
 
 - Choose vprofile-app01 instance -> actions -> image -> create an image and give it a name.
   It will be available under AMIs on EC2 dashboard.
-- Create a launch configuration using our AMI
-  type: t2.micro ->
-  IAM instance profile: choose the role that we created for the app-instance  
-  select vprofile-app-sg /keypair
+- Create a launch configuration using our AMI <Br>
+  type: t2.micro <br>
+  IAM instance profile: choose the role that we created for the app-instance <br>
+  select vprofile-app-sg /keypair<br>
 - On EC2 dashboard, Create ASG
-  Choose our launch configuration.
-  Select all the subnets to launch in any of the AZs.
-  Enable loadbalancing and choose the loadbalancer.
-  MIN:1, Max: 4, Desired:1 .
-  Target Scaling policy: Target value = 50 .
-  Add notification, tags if you wish.
+
+Choose our launch configuration <br>
+Select all the subnets to launch in any of the AZs<Br>
+Enable loadbalancing and choose the loadbalancer<br>
+MIN:1, Max: 4, Desired:1 <br>
+Target Scaling policy: Target value = 50 <br>
+Add notification, tags if you wish.<br>
 
 #### 21. Test the ASG
 
 You can test the Autoscaling Group by deleting the app-instance and waiting for some time. The ASG will launch an instance using the launch configuration.
-Please note that the number of instances that will be launched equals "Desired" and will never go below "Min" or above "Max"
+<br>
+_Please note that the number of instances that will be launched equals "Desired" and will never go below "Min" or above "Max"_<br>
 
 You can go further and test the ASG via running a Stress job [ Lookup how to do it using Stress package on linux].
 
