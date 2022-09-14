@@ -242,23 +242,40 @@ You can test the Autoscaling Group by deleting the app-instance and waiting for 
 <br>
 _Please note that the number of instances that will be launched equals "Desired" and will never go below "Min" or above "Max"_<br>
 
-| ![space-1.jpg](<https://github.com/Ahmed-Hodhod/Migrating-Multi-tier-WebApp-To-AWS-Using-LiftAndShfit-Strategy/blob/main/Screenshots/Screenshot%20(2256).png>) |
+| ![testing ASG](<https://github.com/Ahmed-Hodhod/Migrating-Multi-tier-WebApp-To-AWS-Using-LiftAndShfit-Strategy/blob/main/Screenshots/Screenshot%20(2256).png>) |
 | :------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-|                                                     _Deleting the app-instance to test AutoScaling Group_                                                      |
+|                                         _An app-instance is being launched in response to deleting the app-instance _                                          |
 
-![SNS topic](<https://github.com/Ahmed-Hodhod/Migrating-Multi-tier-WebApp-To-AWS-Using-LiftAndShfit-Strategy/blob/main/Screenshots/Screenshot%20(2254).png>)
+| ![SNS topic](<https://github.com/Ahmed-Hodhod/Migrating-Multi-tier-WebApp-To-AWS-Using-LiftAndShfit-Strategy/blob/main/Screenshots/Screenshot%20(2254).png>) |
+| :----------------------------------------------------------------------------------------------------------------------------------------------------------: |
+
+| _An email is received from the SNS topic when a new instance is launched by the ASG _|
 
 You can go further and test the ASG via running a Stress job [ Lookup how to do it using Stress package on linux].
 
-![testing the app](<https://github.com/Ahmed-Hodhod/Migrating-Multi-tier-WebApp-To-AWS-Using-LiftAndShfit-Strategy/blob/main/Screenshots/Screenshot%20(2241).png>)
+| ![testing app](<https://github.com/Ahmed-Hodhod/Migrating-Multi-tier-WebApp-To-AWS-Using-LiftAndShfit-Strategy/blob/main/Screenshots/Screenshot%20(2241).png>) |
+| :------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+|                                               _Copy the endpoint of the ELB to the browser to view the webapp _                                                |
 
-![testing the app](<https://github.com/Ahmed-Hodhod/Migrating-Multi-tier-WebApp-To-AWS-Using-LiftAndShfit-Strategy/blob/main/Screenshots/Screenshot%20(2240).png>)
+| ![testing app](<https://github.com/Ahmed-Hodhod/Migrating-Multi-tier-WebApp-To-AWS-Using-LiftAndShfit-Strategy/blob/main/Screenshots/Screenshot%20(2240).png>) |
+| :------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+|                                                          _Access the webapp through teh ELB endpoint_                                                          |
 
-![testing the app](<https://github.com/Ahmed-Hodhod/Migrating-Multi-tier-WebApp-To-AWS-Using-LiftAndShfit-Strategy/blob/main/Screenshots/Screenshot%20(2243).png>)
+| ![Login to the app](<https://github.com/Ahmed-Hodhod/Migrating-Multi-tier-WebApp-To-AWS-Using-LiftAndShfit-Strategy/blob/main/Screenshots/Screenshot%20(2243).png>) |
+| :-----------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+
+| _ user: admin_vp, password: admin_vp_ <br>
+_Login to the webapp _ |
 
 ![testing the memcached service-1](<https://github.com/Ahmed-Hodhod/Migrating-Multi-tier-WebApp-To-AWS-Using-LiftAndShfit-Strategy/blob/main/Screenshots/Screenshot%20(2245).png>)
 
-![testing the memcached service-2](<https://github.com/Ahmed-Hodhod/Migrating-Multi-tier-WebApp-To-AWS-Using-LiftAndShfit-Strategy/blob/main/Screenshots/Screenshot%20(2246).png>)
+| ![testing memcached-1](<https://github.com/Ahmed-Hodhod/Migrating-Multi-tier-WebApp-To-AWS-Using-LiftAndShfit-Strategy/blob/main/Screenshots/Screenshot%20(2245).png>) |
+| :--------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+|                                         _Quering the database for the first time. No data is cached in the memcached server. _                                         |
+
+| ![testing memcached-2](<https://github.com/Ahmed-Hodhod/Migrating-Multi-tier-WebApp-To-AWS-Using-LiftAndShfit-Strategy/blob/main/Screenshots/Screenshot%20(2246).png>) |
+| :--------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+|        _Querying the database for the second time. Notice that the query is not sent to the mysql server and the query result is fetched from the memcached. _         |
 
 ## Conclusion
 
