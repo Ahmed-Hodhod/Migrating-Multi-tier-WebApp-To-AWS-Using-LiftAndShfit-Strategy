@@ -31,7 +31,7 @@ whenever you feel you need a break.**
 
 #### 1. Create a security group for the ELB (vprofile-elb-sg)
 
-The sg should allow any _http/https_ request from any ip4 or ipv6. \n
+The sg should allow any _http/https_ request from any ip4 or ipv6*.*
 One of the best practices is to only allow https requests to webapp.
 
 #### 2. Createa a security group for the app-tier (vrofile-app-sg)
