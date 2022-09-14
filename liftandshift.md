@@ -58,59 +58,57 @@ PS: src/main/resources/application.properties (Java file) holds all specifics ab
 
 #### 4. create a key-pair (.pem for git bash or .ppk for putty)
 
-**_NOTE: we will use git bash in this setup._**
-
 #### 5. Launch mysql instance
 
-AMI: use centOS 7 from the marketplace.
-sg: use vprofile-backend-sg
-userdata: copy-paste the script userdata/mysql.sh
+AMI: use centOS 7 from the marketplace <br>
+sg: use vprofile-backend-sg <br>
+userdata: copy-paste the script userdata/mysql.sh <br>
 
 The userdata script is installing Mariadb server, creating a database (accounts) having a user (admin) with a password (admin123),
 and finally populating the accounts database with some dummy data.
 
 #### 7. (Validate) Login into the instance using git bash
 
-- On instances dashboard, choose the app instance and connect. From SSH client tab, copy the SSH command and paste it to git bash to
-  login to the instance.
+- On instances dashboard, choose the app instance and connect. From SSH client tab, copy the SSH command and paste it to git bash to login to the instance.
 - Switch to root: sudo -i
-- Check whether mariadb server is running or not: systemctl status mariadb  
+- Check whether mariadb server is running or not: systemctl status mariadb <br>
   In case of a failure, you can consider waiting for a while and then trying again because it may be taking time to execute the userdata
   script after launching the instance.
 
 #### 8. Launch MemCached instance
 
-AMI: use centOS 7 from the marketplace.
-sg: use vprofile-backend-sg
-userdata: copy-paste the script userdata/memcache.sh
+AMI: use centOS 7 from the marketplace.<br>
+sg: use vprofile-backend-sg <br>
+userdata: copy-paste the script userdata/memcache.sh<br>
 The script is installing the memcached server and starting it.
 
 #### 9. Launch rabbitMQ instance
 
-AMI: use centOS 7 from the marketplace.
-sg: use vprofile-backend-sg
-userdata: copy-paste the script userdata/rabbitmq.sh
+AMI: use centOS 7 from the marketplace <br>
+sg: use vprofile-backend-sg <Br>
+userdata: copy-paste the script userdata/rabbitmq.sh <br>
 The script is installing rabbitMQ server & its dependencies and then starting it.
 
 #### 10. In a blank file, write down the private IP of each of the 3 instances in the backend.
 
 #### 11. Go to AWS Route 53 -> Create a private Hosted Zone
 
-    Domain Name: vprofile.in
-    Region: us-east-1 (North Virginia)
-    vpc: default
+Domain Name: vprofile.in <br>
+Region: us-east-1 (North Virginia) <br>
+vpc: default<br>
 
 #### 12. Create simple records in the hosted zone
 
-We will create three records for our backend instances.
-Record name: db01
-endpoint: paste the IP copied from the blank file (step 9)
+We will create three records for our backend instances.<br>
+Record name: db01 <br>
+endpoint: paste the IP copied from the blank file (step 9) <br>
 
-Similarly, define the other two records.
-Now, we have 3 records as following:
-db01.vprofile.in
-mc01.vprofile.in
-rmq01.vprofile.in
+Similarly, define the other two records.<br>
+Now, we have 3 records as following:<br>
+
+- db01.vprofile.in<br>
+- mc01.vprofile.in<br>
+- rmq01.vprofile.in<br>
 
 This is one of the best practices regarding using AWS resources. Instead of hard-coding the public IP addresse of an instance,
 you can rather use a Domain record. Also, public IP addresses are prune to change when restarting instances for any reason.
