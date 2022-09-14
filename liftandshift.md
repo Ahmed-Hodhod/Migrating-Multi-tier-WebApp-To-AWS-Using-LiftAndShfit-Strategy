@@ -32,13 +32,13 @@ whenever you feel you need a break.**
 #### 1. Create a security group for the ELB (vprofile-elb-sg)
 
 The sg should allow any _http/https_ request from any ip4 or ipv6.<br>
-One of the best practices is to only allow https requests to webapp.
+**One of the best practices is to only allow https requests to webapp.**
 
 #### 2. Createa a security group for the app-tier (vrofile-app-sg)
 
-The sg should only allow for traffic from vprofile-elb-sg on port 8080.
+The sg should only allow for traffic from vprofile-elb-sg on port 8080.<br>
 The sg should also have port 22 open to be able to login to the instance and troubleshoot our running app.
-our application is running on a tomcat server listening on port 8080.
+**our application is running on a tomcat server listening on port 8080.**
 
 #### 3. Create a security group for the app-tier (vrofile-backend-sg)
 
