@@ -1,3 +1,5 @@
+---
+
 In this walkthrough, we will migrate a multi-tier webapp to the cloud without changing the workflow [Lift and Shift Strategy].
 
 ## Prerequisite
@@ -216,3 +218,5 @@ You can go further and test the ASG via running a Stress job [ Lookup how to do 
 ## Conclusion
 
 In this walkthrough, we shifted the project manually to EC2 instances managed by us on AWS using the classic approach [Simple Lift & Shift]
+
+---
