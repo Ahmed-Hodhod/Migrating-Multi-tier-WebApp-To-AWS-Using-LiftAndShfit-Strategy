@@ -126,12 +126,12 @@ userdata: copy-paste the script userdata/tomcat_ubuntu.sh
 #### 14. Open Git Bash
 
 - clone the source code: `git clone -b aws-LiftAndShift https://github.com/devopshydclub/vprofile-project.git`
-- swtich to aws-LiftAndShift: git checkout aws-LiftAndShift -f
-- cd into vprofile-project/src/main/resource and update the application.properties file:
-  instead of "db01" in the third line, make it: db01.vprofile.in
-  db01 -> db01.vprofile.in
-  mc01 -> mc01.vprofile.in
-  rmq01 -> rmq01.vprofile.in
+- swtich to aws-LiftAndShift: `git checkout aws-LiftAndShift -f`
+- cd into vprofile-project/src/main/resource and update the application.properties file: <br>
+  instead of "db01" in the third line, make it: db01.vprofile.in<br>
+  db01 -> db01.vprofile.in<br>
+  mc01 -> mc01.vprofile.in<br>
+  rmq01 -> rmq01.vprofile.in<br>
 - Go back to vprofile-project where you have "pom.xml" file and execute this command to build the project and generate the artifact: mvn install
 - After it finishes executing, you should now have "vprofil-v2.war" in the newly created folder "target"
 
