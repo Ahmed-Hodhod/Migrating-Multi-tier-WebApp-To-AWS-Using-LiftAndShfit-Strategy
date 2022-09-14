@@ -7,8 +7,8 @@ sometimes we will have to go back and modify some properties to test the provisi
 
 ## AWS resources
 
-_Please note that this project will incur some AWS charges. So, you can consider finishing the whole project in one go or stopping the instances
-whenever you feel you need a break._
+\*\*Please note that this project will incur some AWS charges. So, you can consider finishing the whole project in one go or stopping the instances
+whenever you feel you need a break.
 
 Elastic Cloud Compute(EC2)
 Elastic Load Balancer(ELB)
