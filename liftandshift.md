@@ -19,7 +19,7 @@ whenever you feel you need a break.**
 
 ## Workflow in a high context
 
-- users will be able to access the app using the ELB endpoint.
+- Users will be able to access the app using the ELB endpoint.
 - ELB will forward the request to the tomcat server running on the app-instance (app-tier).
 - The app-instance will access mysql instance (database-tier) and rabbitMQ & memcached instances (backend-tier) through route 53 private hosted zone.
 
@@ -222,4 +222,4 @@ You can go further and test the ASG via running a Stress job [ Lookup how to do 
 
 ## Conclusion
 
-Lift and Shift strategy is the not the best way to migrate to the cloud.<br>Cloud providers such as AWS provide lots of tools that could help the businesses to operate faster without sharp costs or the burdening management or the provisioned resources.
+Lift and Shift strategy is the not the best way to migrate to the cloud.Cloud providers such as AWS provide lots of tools that could help the businesses to operate faster without sharp costs or the burdening management or the provisioned resources.
