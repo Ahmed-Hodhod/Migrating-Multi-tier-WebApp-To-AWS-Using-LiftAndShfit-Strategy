@@ -244,39 +244,35 @@ _Please note that the number of instances that will be launched equals "Desired"
 
 | ![testing ASG](<https://github.com/Ahmed-Hodhod/Migrating-Multi-tier-WebApp-To-AWS-Using-LiftAndShfit-Strategy/blob/main/Screenshots/Screenshot%20(2256).png>) |
 | :------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-|                                         _An app-instance is being launched in response to deleting the app-instance _                                          |
+|                                          An app-instance is being launched in response to deleting the app-instance.                                           |
 
 | ![SNS topic](<https://github.com/Ahmed-Hodhod/Migrating-Multi-tier-WebApp-To-AWS-Using-LiftAndShfit-Strategy/blob/main/Screenshots/Screenshot%20(2254).png>) |
 | :----------------------------------------------------------------------------------------------------------------------------------------------------------: |
 
-| _An email is received from the SNS topic when a new instance is launched by the ASG _|
+| An email is received from the SNS topic when a new instance is launched by the ASG.|
 
 You can go further and test the ASG via running a Stress job [ Lookup how to do it using Stress package on linux].
 
 | ![testing app](<https://github.com/Ahmed-Hodhod/Migrating-Multi-tier-WebApp-To-AWS-Using-LiftAndShfit-Strategy/blob/main/Screenshots/Screenshot%20(2241).png>) |
 | :------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-|                                               _Copy the endpoint of the ELB to the browser to view the webapp _                                                |
+|                                                Copy the endpoint of the ELB to the browser to view the webapp.                                                 |
 
 | ![testing app](<https://github.com/Ahmed-Hodhod/Migrating-Multi-tier-WebApp-To-AWS-Using-LiftAndShfit-Strategy/blob/main/Screenshots/Screenshot%20(2240).png>) |
 | :------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-|                                                          _Access the webapp through teh ELB endpoint_                                                          |
+|                                                           Access the webapp through teh ELB endpoint                                                           |
 
 | ![Login to the app](<https://github.com/Ahmed-Hodhod/Migrating-Multi-tier-WebApp-To-AWS-Using-LiftAndShfit-Strategy/blob/main/Screenshots/Screenshot%20(2243).png>) |
 | :-----------------------------------------------------------------------------------------------------------------------------------------------------------------: |
 
-|
-_ Login the webapp _
-|
-
-| _ user: admin_vp, password: admin_vp _ |
+| Login the webapp. <br>user: admin_vp, password: admin_vp |
 
 | ![testing memcached-1](<https://github.com/Ahmed-Hodhod/Migrating-Multi-tier-WebApp-To-AWS-Using-LiftAndShfit-Strategy/blob/main/Screenshots/Screenshot%20(2245).png>) |
 | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-|                                        _ Quering the database for the first time. No data is cached in the memcached server. _                                         |
+|                                          Quering the database for the first time. No data is cached in the memcached server.                                           |
 
 | ![testing memcached-2](<https://github.com/Ahmed-Hodhod/Migrating-Multi-tier-WebApp-To-AWS-Using-LiftAndShfit-Strategy/blob/main/Screenshots/Screenshot%20(2246).png>) |
 | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-|          Querying the database for the second time. Notice that the query is not sent to the mysql server and the query result is fetched from the memcached.          |
+|        Querying the database for the second time.<br> Notice that the query is not sent to the mysql server and the query result is fetched from the memcached.        |
 
 ## Conclusion
 
