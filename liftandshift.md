@@ -22,7 +22,8 @@ whenever you feel you need a break.**
 - users will be able to access the app using the ELB endpoint.
 - ELB will forward the request to the tomcat server running on the app-instance (app-tier).
 - The app-instance will access mysql instance (database-tier) and rabbitMQ & memcached instances (backend-tier) through route 53 private hosted zone.
-  **NOTE: Each tier will have a different security group.**
+
+**NOTE: Each tier will have a different security group.**
 
 ## Guidelines
 
@@ -30,8 +31,8 @@ whenever you feel you need a break.**
 
 #### 1. Create a security group for the ELB (vprofile-elb-sg)
 
-The sg should allow any http/https request from any ip4 or ipv6.
-One of the best practices is to only allow https requests to our webapp.
+The sg should allow any _http/https_ request from any ip4 or ipv6.
+One of the best practices is to only allow https requests to webapp.
 
 #### 2. Createa a security group for the app-tier (vrofile-app-sg)
 
