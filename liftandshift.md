@@ -43,7 +43,7 @@ which we replaced with AWS ELB.
 3. Create a security group for the app-tier (vrofile-backend-sg)  
    By backend we mean the three instances on which memcached, rabbitMQ and mysql database will be running.
 
-# This sg should allow for traffic on the following ports:
+##### This sg should allow for traffic on the following ports:
 
 - 3306 (mysql port) from vrofile-app-sg
 - 11211 (MemCached port) from vrofile-app-sg
