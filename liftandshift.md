@@ -69,17 +69,18 @@ and finally populating the accounts database with some dummy data.
 
 #### 7. (Validate) Login into the instance using git bash
 
-- On instances dashboard, choose the app instance and connect. From SSH client tab, copy the SSH command and paste it to git bash to login to the instance.
+- On EC2 dashboard, choose the app instance and connect. From SSH client tab, copy the SSH command and paste it to git bash to login to the instance.
 - Switch to root: sudo -i
-- Check whether mariadb server is running or not: systemctl status mariadb <br>
-  In case of a failure, you can consider waiting for a while and then trying again because it may be taking time to execute the userdata
-  script after launching the instance.
+- Check whether mariadb server is running or not: systemctl status mariadb
+
+In case of a failure, you can consider waiting for a while and then trying again because it may be taking time to execute the userdata script after launching the instance.
 
 #### 8. Launch MemCached instance
 
 AMI: use centOS 7 from the marketplace.<br>
 sg: use vprofile-backend-sg <br>
 userdata: copy-paste the script userdata/memcache.sh<br>
+
 The script is installing the memcached server and starting it.
 
 #### 9. Launch rabbitMQ instance
@@ -87,6 +88,7 @@ The script is installing the memcached server and starting it.
 AMI: use centOS 7 from the marketplace <br>
 sg: use vprofile-backend-sg <Br>
 userdata: copy-paste the script userdata/rabbitmq.sh <br>
+
 The script is installing rabbitMQ server & its dependencies and then starting it.
 
 #### 10. In a blank file, write down the private IP of each of the 3 instances in the backend.
