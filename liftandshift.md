@@ -208,5 +208,6 @@ rmq01 -> rmq01.vprofile.in
 
 You can go further and test the AGS via running a Stress job [ Lookup how to do it using Stress package on linux].
 
-Conclusion
+## Conclusion
+
 In this walkthrough, we shifted our project manually to AWS using our managed instances [ Lift & Shift Strategy]
