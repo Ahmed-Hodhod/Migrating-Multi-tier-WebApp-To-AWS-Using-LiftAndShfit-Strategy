@@ -210,4 +210,4 @@ You can go further and test the AGS via running a Stress job [ Lookup how to do 
 
 ## Conclusion
 
-In this walkthrough, we shifted our project manually to AWS using our managed instances [ Lift & Shift Strategy]
+In this walkthrough, we shifted our project manually to our managed instances on AWS using the classic approach [Simple Lift & Shift]
