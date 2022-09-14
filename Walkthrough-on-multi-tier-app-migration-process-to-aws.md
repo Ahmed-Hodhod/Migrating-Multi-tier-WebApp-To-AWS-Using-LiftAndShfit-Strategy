@@ -21,11 +21,11 @@ whenever you feel you need a break.**
 
 - Users will be able to access the app using the ELB endpoint.
 - ELB will forward the request to the tomcat server running on the app-instance (app-tier).
-- The app-instance will access mysql instance (database-tier) and rabbitMQ & memcached instances (backend-tier) through route 53 private hosted zone.
+- The app-instance will access the mysql instance (database-tier) and rabbitMQ & memcached instances (backend-tier) through route 53 private hosted zone records.
 
 | ![workflow](https://github.com/Ahmed-Hodhod/Migrating-Multi-tier-WebApp-To-AWS-Using-LiftAndShfit-Strategy/blob/main/workflow.png) |
 | :--------------------------------------------------------------------------------------------------------------------------------: |
-|                                                      _The Workflow diagram. _                                                      |
+|                                                        The Workflow diagram                                                        |
 
 **NOTE: Each tier will have a different security group.**
 
