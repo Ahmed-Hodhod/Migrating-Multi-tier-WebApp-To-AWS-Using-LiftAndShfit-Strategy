@@ -58,7 +58,7 @@ PS: src/main/resources/application.properties (Java file) holds all specifics ab
 
 #### 4. create a key-pair (.pem for git bash or .ppk for putty)
 
-NOTE: we will use git bash in this setup.
+**_NOTE: we will use git bash in this setup._**
 
 #### 5. Launch mysql instance
 
