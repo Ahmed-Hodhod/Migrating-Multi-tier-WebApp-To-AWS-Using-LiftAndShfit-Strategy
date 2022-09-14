@@ -122,7 +122,7 @@ Now, we have 3 records as following:<br>
 This is one of the best practices regarding using AWS resources. Instead of hard-coding the public IP addresse of an instance,
 you can rather use a Domain record. Also, public IP addresses are prune to change when restarting instances for any reason.
 
-![sampmle zone records ](<https://github.com/Ahmed-Hodhod/Migrating-Multi-tier-WebApp-To-AWS-Using-LiftAndShfit-Strategy/blob/main/Screenshots/Screenshot%20(2203).png>)
+![sample zone records ](<https://github.com/Ahmed-Hodhod/Migrating-Multi-tier-WebApp-To-AWS-Using-LiftAndShfit-Strategy/blob/main/Screenshots/Screenshot%20(2224).png>)
 
 #### 13. Launch the app instance which is running on a tomcat server
 
@@ -242,12 +242,11 @@ You can test the Autoscaling Group by deleting the app-instance and waiting for 
 <br>
 _Please note that the number of instances that will be launched equals "Desired" and will never go below "Min" or above "Max"_<br>
 
-You can go further and test the ASG via running a Stress job [ Lookup how to do it using Stress package on linux].
 ![deleting all instances to test ASG](<https://github.com/Ahmed-Hodhod/Migrating-Multi-tier-WebApp-To-AWS-Using-LiftAndShfit-Strategy/blob/main/Screenshots/Screenshot%20(2256).png>)
 
-![an instance is launching ](<https://github.com/Ahmed-Hodhod/Migrating-Multi-tier-WebApp-To-AWS-Using-LiftAndShfit-Strategy/blob/main/Screenshots/Screenshot%20(2247).png>)
-
 ![SNS topic](<https://github.com/Ahmed-Hodhod/Migrating-Multi-tier-WebApp-To-AWS-Using-LiftAndShfit-Strategy/blob/main/Screenshots/Screenshot%20(2254).png>)
+
+You can go further and test the ASG via running a Stress job [ Lookup how to do it using Stress package on linux].
 
 ![testing the app](<https://github.com/Ahmed-Hodhod/Migrating-Multi-tier-WebApp-To-AWS-Using-LiftAndShfit-Strategy/blob/main/Screenshots/Screenshot%20(2241).png>)
 
